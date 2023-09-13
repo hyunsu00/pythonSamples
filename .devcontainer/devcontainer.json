@@ -1,13 +1,21 @@
 {
-    "name": "pythonSamples",
-    "build": { "dockerfile": "Dockerfile" },
-    "remoteUser": "vscode",
-    "customizations": {
-      "settings": {
-				"http.proxyStrictSSL": false
-			},
-      "vscode": {
-        "extensions": ["ms-python.python"]
-      }
-    }
-  }
+	"name": "pythonSamples",
+	"build": {
+		"dockerfile": "Dockerfile_python3.7"
+	},
+	"runArgs": [
+		"--name=python-samples",
+		"--publish=8101:8101"
+	],
+	"remoteUser": "vscode",
+	"customizations": {
+		"settings": {
+			"http.proxyStrictSSL": false
+		},
+		"vscode": {
+			"extensions": [
+				"ms-python.python"
+			]
+		}
+	}
+}
