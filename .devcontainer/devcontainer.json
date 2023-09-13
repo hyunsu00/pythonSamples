@@ -1,0 +1,13 @@
+{
+    "name": "pythonSamples",
+    "build": { "dockerfile": "Dockerfile" },
+    "remoteUser": "vscode",
+    "customizations": {
+      "settings": {
+				"http.proxyStrictSSL": false
+			},
+      "vscode": {
+        "extensions": ["ms-python.python"]
+      }
+    }
+  }
