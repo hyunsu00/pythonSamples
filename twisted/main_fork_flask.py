@@ -1,9 +1,10 @@
-# flask_main.py
-from flask import Flask
+# main_fork_flask.py
 import os
 from twisted.web import server, resource
 from twisted.internet import reactor, endpoints
+from flask import Flask
 
+# twisted
 class Counter(resource.Resource):
     isLeaf = True
     numberRequests = 0
@@ -19,9 +20,14 @@ class HealthCheckResource(resource.Resource):
 
     def render_GET(self, request):
         return b"Health Check: OK"
-    
-app = Flask(__name__)
 
+root = resource.Resource()
+root.putChild(b"health", HealthCheckResource())
+endpoints.serverFromString(reactor, "tcp:8101").listen(server.Site(Counter()))
+endpoints.serverFromString(reactor, "tcp:8102").listen(server.Site(root))
+
+# flask    
+app = Flask(__name__)
 @app.route('/health')
 def health_check():
     return '서버 정상 작동 중입니다.', 200
@@ -48,9 +54,5 @@ if __name__ == '__main__':
     run_child_flask()
 
     # twisted를 메인 프로세스로 실행 시킨다.
-    root = resource.Resource()
-    root.putChild(b"health", HealthCheckResource())
-    endpoints.serverFromString(reactor, "tcp:8101").listen(server.Site(Counter()))
-    endpoints.serverFromString(reactor, "tcp:8102").listen(server.Site(root))
     reactor.run()
     
