@@ -1,4 +1,4 @@
-# main_thread_flask.py
+
 from threading import Thread
 from twisted.web import server, resource
 from twisted.internet import reactor, endpoints, threads
@@ -28,9 +28,9 @@ endpoints.serverFromString(reactor, "tcp:8102").listen(server.Site(root))
 
 # flask
 app = Flask(__name__)
-@app.route('/health')
+@app.route('/')
 def health_check():
-    return '서버 정상 작동 중입니다.', 200
+    return 'alive ok', 200
 
 if __name__ == '__main__':
     # flask를 자식 쓰레드로 실행 시킨다.
