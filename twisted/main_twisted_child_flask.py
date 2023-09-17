@@ -28,9 +28,9 @@ endpoints.serverFromString(reactor, "tcp:8102").listen(server.Site(root))
 
 # flask
 app = Flask(__name__)
-@app.route('/')
+@app.route('/health')
 def health_check():
-    return 'alive ok', 200
+    return '서버 정상 작동 중입니다.', 200
 
 if __name__ == '__main__':
     # flask를 자식 쓰레드로 실행 시킨다.
